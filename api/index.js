@@ -16,4 +16,10 @@ router.get('/prueba', function(req, res) {
 	res.json(arreglo);
 });
 
+router.post('/datos', function(req, res) {
+	var data = req.body.data;
+	console.log(data);
+	res.json(data);
+});
+
 module.exports = router;
