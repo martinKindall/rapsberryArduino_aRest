@@ -1,35 +1,43 @@
 $(document).ready(function(){
 	var mainUrl = "/api";
-	var onOffLedUrl = "/digital/8/";
-	var pwmLedUrl = "/analog/11/";
 	var textUrl = "/lcd/";
+	var config = "/config";
 
-	$('#on').click(function(){
-		getRequest(mainUrl+onOffLedUrl+'1');
-	});
+	// init
+	$.get(mainUrl+config, function(response){
+		var configData = response.data;
+		console.log(configData);
 
-	$('#off').click(function(){
-		getRequest(mainUrl+onOffLedUrl+'0');
-	});
+		var onOffLedUrl = "/digital/" + configData.LED + "/";
+		var pwmLedUrl = "/analog/" + configData.PWM + "/";
 
-	$('#slider').click("touchend", function(){
-		getRequest(mainUrl+pwmLedUrl+$(this).val());
-	});
+		$('#on').click(function(){
+			getRequest(mainUrl+onOffLedUrl+'1');
+		});
 
-	//uncomment following for cellphones
-	// $('#slider').bind("touchend", function(){
-	// 	getRequest(mainUrl+pwmLedUrl+$(this).val());
-	// });
+		$('#off').click(function(){
+			getRequest(mainUrl+onOffLedUrl+'0');
+		});
 
-	$('#enviar').click(function(){
-		getRequest(mainUrl+textUrl+$("#texto").val());
+		$('#slider').click("touchend", function(){
+			getRequest(mainUrl+pwmLedUrl+$(this).val());
+		});
+
+		//uncomment following for cellphones
+		// $('#slider').bind("touchend", function(){
+		// 	getRequest(mainUrl+pwmLedUrl+$(this).val());
+		// });
+
+		$('#enviar').click(function(){
+			getRequest(mainUrl+textUrl+$("#texto").val());
+		});
 	});
 });
 
 function getRequest(url)
 {
 	$.get(url, function(response){
-		console.log(response);
+		console.log(response.data);
 		$("#console").text(response.data);
 	});
 }

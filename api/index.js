@@ -2,9 +2,15 @@
 
 var express = require('express');
 
+var config = require('../config/constants');
+
 var router = express.Router();
 
-router.get('/digital/8/:toggle', function(req, res) {
+router.get('/config', function(req, res){
+	res.json({"data" : config});
+});
+
+router.get('/digital/' + config.LED + '/:toggle', function(req, res) {
 	var toggle = req.params.toggle;
 	var states = {
 		"1" : "HIGH",
@@ -13,7 +19,7 @@ router.get('/digital/8/:toggle', function(req, res) {
 	res.json({"data" : "LED set to: " + states[toggle]});
 });
 
-router.get('/analog/11/:pwm', function(req, res) {
+router.get('/analog/' + config.PWM + '/:pwm', function(req, res) {
 	var pwm = req.params.pwm;
 	res.json({"data" : "PWM set to: " + pwm});
 });
