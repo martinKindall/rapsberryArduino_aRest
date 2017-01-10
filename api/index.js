@@ -3,6 +3,7 @@
 var express = require('express');
 
 var config = require('../config/constants');
+var serial = require('./Serial');
 
 var router = express.Router();
 
@@ -16,16 +17,20 @@ router.get('/digital/' + config.LED + '/:toggle', function(req, res) {
 		"1" : "HIGH",
 		"0" : "LOW"
 	};
+	serial.digital(config.LED, toggle);
+
 	res.json({"data" : "LED set to: " + states[toggle]});
 });
 
 router.get('/analog/' + config.PWM + '/:pwm', function(req, res) {
 	var pwm = req.params.pwm;
+	serial.analogPWM(config.PWM, pwm);
 	res.json({"data" : "PWM set to: " + pwm});
 });
 
 router.get('/lcd/:texto', function(req, res) {
 	var texto = req.params.texto;
+	serial.tft(texto);
 	res.json({"data" : "LCD: " + texto});
 });
 
