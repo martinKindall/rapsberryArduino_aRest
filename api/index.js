@@ -30,8 +30,7 @@ router.get('/analog/' + config.PWM + '/:pwm', function(req, res) {
 
 router.get('/lcd/:texto', function(req, res) {
 	var texto = req.params.texto;
-	serial.tft(texto);
-	res.json({"data" : "LCD: " + texto});
+	serial.tft(texto, res);
 });
 
 

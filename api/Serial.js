@@ -8,24 +8,9 @@ var port = new SerialPort("/dev/ttyUSB0", {
 	{
 		return console.log("Fallo");
 	}
+
+	console.log("Puerto serial abierto");
 });
-
-port.on('open', function() {
-	console.log("abierto");
-	setTimeout(function(){
-		port.write("/tft?params=probandoNode\r", function(err) {
-		    if (err) {
-		      return console.log('Error on write: ', err.message);
-		    }
-		    console.log('message written');
-		});
-		port.on('data', function(data){
-			console.log("Arduino data: " + data);
-		});
-	}, 5000);
-});
-
-
 
 var digital = function(pin, state){
 	var digitalComand = "/digital/" + pin + "/" + state;
@@ -37,21 +22,14 @@ var analogPWM = function(pin, value){
 	console.log(pwmComand);
 };
 
-var tft = function(text){
+var tft = function(text, res){
 	var textCommand = "/tft?params=" + text + "\r";
-	console.log(textCommand);
-	port.on('open', function() {
-		console.log("abierto");
-		port.write(textCommand, function(err) {
-		    if (err) {
-		      return console.log('Error on write: ', err.message);
-		    }
-		    console.log('message written');
-		});
-	});
-
-	port.on('error', function(err) {
-	  console.log('Error: ', err.message);
+	port.write(textCommand, function(err) {
+	    if (err) {
+	        console.log('Error on write: ', err.message);
+			res.json({"data" : "LCD: " + err.message});
+	    }
+		res.json({"data" : "LCD: " + text});
 	});
 };
 
