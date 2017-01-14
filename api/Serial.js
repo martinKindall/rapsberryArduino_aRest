@@ -27,9 +27,15 @@ var digital = function(pin, state, res){
 	});
 };
 
-var analogPWM = function(pin, value){
-	var pwmComand = "/analog/" + pin + "/" + value;
-	console.log(pwmComand);
+var analogPWM = function(pin, value, res){
+	var pwmComand = "/analog/" + pin + "/" + value + "\r";
+	port.write(pwmComand, function(err) {
+	    if (err) {
+	        console.log('Error on write: ', err.message);
+			res.json({"data" : "PWM: " + err.message});
+	    }
+		res.json({"data" : "PWM set to: " + value});
+	});
 };
 
 var tft = function(text, res){

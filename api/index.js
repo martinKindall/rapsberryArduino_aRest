@@ -19,7 +19,6 @@ router.get('/digital/' + config.LED + '/:toggle', function(req, res) {
 router.get('/analog/' + config.PWM + '/:pwm', function(req, res) {
 	var pwm = req.params.pwm;
 	serial.analogPWM(config.PWM, pwm, res);
-	res.json({"data" : "PWM set to: " + pwm});
 });
 
 router.get('/lcd/:texto', function(req, res) {
