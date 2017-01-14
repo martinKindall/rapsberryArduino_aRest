@@ -13,18 +13,12 @@ router.get('/config', function(req, res){
 
 router.get('/digital/' + config.LED + '/:toggle', function(req, res) {
 	var toggle = req.params.toggle;
-	var states = {
-		"1" : "HIGH",
-		"0" : "LOW"
-	};
-	serial.digital(config.LED, toggle);
-
-	res.json({"data" : "LED set to: " + states[toggle]});
+	serial.digital(config.LED, toggle, res);
 });
 
 router.get('/analog/' + config.PWM + '/:pwm', function(req, res) {
 	var pwm = req.params.pwm;
-	serial.analogPWM(config.PWM, pwm);
+	serial.analogPWM(config.PWM, pwm, res);
 	res.json({"data" : "PWM set to: " + pwm});
 });
 

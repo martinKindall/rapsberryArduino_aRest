@@ -12,9 +12,19 @@ var port = new SerialPort("/dev/ttyUSB0", {
 	console.log("Puerto serial abierto");
 });
 
-var digital = function(pin, state){
-	var digitalComand = "/digital/" + pin + "/" + state;
-	console.log(digitalComand);
+var digital = function(pin, state, res){
+	var states = {
+		"1" : "HIGH",
+		"0" : "LOW"
+	};
+	var digitalComand = "/digital/" + pin + "/" + state + "\r";
+	port.write(digitalComand, function(err) {
+	    if (err) {
+	        console.log('Error on write: ', err.message);
+			res.json({"data" : "LED: " + err.message});
+	    }
+		res.json({"data" : "LED set to: " + states[state]});
+	});
 };
 
 var analogPWM = function(pin, value){
@@ -31,6 +41,7 @@ var tft = function(text, res){
 	    }
 		res.json({"data" : "LCD: " + text});
 	});
+
 };
 
 module.exports = {

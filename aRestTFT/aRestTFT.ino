@@ -11,6 +11,9 @@
 
 #define ROTATELEFT 3   // -90 grados
 
+#define DIGITAL 8
+#define PWM 6
+
 // Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 // If using the breakout, change pins as desired
@@ -20,6 +23,10 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 aREST rest = aREST();
 
 void setup() {
+  pinMode(PWM, OUTPUT);
+  analogWrite(PWM, 0);
+  pinMode(DIGITAL, OUTPUT);
+  digitalWrite(DIGITAL, LOW);
   delay(500);
   // Start Serial
   Serial.begin(9600);
