@@ -37,7 +37,7 @@ void setup() {
   tft.fillScreen(ILI9341_BLACK);
   tft.setTextColor(ILI9341_WHITE);
   tft.setCursor(0, 0);
-  tft.setTextSize(2);
+  tft.setTextSize(3);
   // Function to be exposed
   rest.function("tft",tftControl);
 
