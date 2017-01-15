@@ -41,6 +41,9 @@ void setup() {
   // Function to be exposed
   rest.function("tft",tftControl);
 
+  // Give name and ID to device (ID should be 6 characters long)
+  rest.set_id("2");
+  rest.set_name("serial");
 }
 
 void loop() {

@@ -1,10 +1,10 @@
 $(document).ready(function(){
-	var mainUrl = "/api";
-	var textUrl = "/lcd/";
-	var config = "/config";
+	var mainUrl = "/serial";
+	var textUrl = "/tft?params=";
+	var config = "/api/config";
 
 	// init
-	$.get(mainUrl+config, function(response){
+	$.get(config, function(response){
 		var configData = response.data;
 		console.log(configData);
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
 function getRequest(url)
 {
 	$.get(url, function(response){
-		console.log(response.data);
-		$("#console").text(response.data);
+		console.log(response);
+		$("#console").text(response.message);
 	});
 }
